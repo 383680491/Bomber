@@ -63,7 +63,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 16
+        "__id__": 17
       }
     ],
     "_prefab": null,
@@ -120,7 +120,11 @@
     ],
     "_tag": -1,
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 16
+      }
+    ],
     "_prefab": null,
     "_id": "37W+faNdVOepR+s0RTCMve",
     "_opacity": 255,
@@ -222,7 +226,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "land",
+    "_name": "floor",
     "_objFlags": 0,
     "_parent": {
       "__id__": 4
@@ -236,7 +240,7 @@
       }
     ],
     "_prefab": null,
-    "_id": "e3sNY2geVAZ53SnCPk7QZS",
+    "_id": "f3HcH/jWxIr5IlOFMq+XST",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -340,7 +344,7 @@
     "node": {
       "__id__": 7
     },
-    "_enabled": true
+    "_enabled": false
   },
   {
     "__type__": "cc.Node",
@@ -401,7 +405,7 @@
     "node": {
       "__id__": 9
     },
-    "_enabled": false
+    "_enabled": true
   },
   {
     "__type__": "cc.TiledMap",
@@ -576,13 +580,28 @@
     "jumpCount": 0,
     "hunker": false,
     "isWallCollisionCount": 0,
-    "getScore": 0,
     "isDied": false,
-    "CoinJump": null,
     "fallDown": false,
-    "life": 1,
-    "buttonIsPressed": false,
-    "rabbit": null
+    "life": 1
+  },
+  {
+    "__type__": "dd831/OMy1Jf7IvN13nOq85",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 3
+    },
+    "_enabled": true,
+    "curMap": {
+      "__id__": 11
+    },
+    "playerName": "player",
+    "Wall": "wall",
+    "ColliderPreName": null,
+    "floorLayerName": "floor",
+    "platformGroupName": "platform",
+    "collisions": [],
+    "collisionName": []
   },
   {
     "__type__": "cc.Canvas",
