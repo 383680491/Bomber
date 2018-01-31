@@ -23,6 +23,7 @@ cc.Class({
         },
 
         ColliderPreName: cc.Prefab,
+        //ColliderPreName: cc.Node,
 
         _isMapLoaded: {
             default: false,
@@ -60,16 +61,37 @@ cc.Class({
 
             var platformGroup = this._TiledMap.getObjectGroup(this.platformGroupName)
             var ObjectGroup = this._TiledMap.getObjectGroup("objects")
+            var platGroups = platformGroup.getObjects()
+
+            for (var i = 0; i < platGroups.length; i++) 
+            {
+                var collisionNode = platGroups[i].sgNode;
+                console.log(platGroups[i].getObjectName())
+
+                var node = cc.instantiate(this.ColliderPreName);
+                node.active = true
+                node.position = cc.p(collisionNode.x + collisionNode.width / 2, collisionNode.y - collisionNode.height + collisionNode.height / 2)
+                node.height = collisionNode.height;
+                node.width = collisionNode.width;
+                node.getComponent(cc.BoxCollider).size = cc.size(collisionNode.width, collisionNode.height);
+                node.getComponent(cc.BoxCollider).enabled = true;
+                node.group = 'floor'
+                node.getComponent(cc.BoxCollider).tag = Global.CollisideTag.FLOOR;
+                this.node.addChild(node);
+            }
             
             var group = ObjectGroup.getObjects()
             for (var i = 0; i < group.length; i++)
             {
                 var obj = group[i];
-                //console.log(obj.getObjectName())
+                console.log(obj.getObjectName())
 
                 if ("monster" === obj.getObjectName())
                 {
-                    console.log(obj.getProperty("leftMaxX"))
+                    // if (obj.getProperty("leftMaxX"))
+                    // {
+                    //     console.log(obj.getProperty("leftMaxX"))
+                    // }
                 }
             }
 
