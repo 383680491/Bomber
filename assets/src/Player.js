@@ -503,25 +503,40 @@ cc.Class({
             var otherAabb = other.world.aabb;
             // 上一次计算的碰撞组件的 aabb 碰撞框
             var otherPreAabb = other.world.preAabb.clone();
+
+
+
             var selfAabb = self.world.aabb;
             var selfPreAabb = self.world.preAabb.clone();
+
+
+            
             selfPreAabb.x = selfAabb.x;
             otherPreAabb.x = otherAabb.x;
+
+            JSON.stringify(otherAabb)
+            JSON.stringify(selfPreAabb)
+
+        console.log('collision   this.speed.x====' + this.speed.x)
+        console.log('collision   this.speed.y====' + this.speed.y)
 
             if (cc.Intersection.rectRect(selfPreAabb, otherPreAabb))
                 {
                     if (this.speed.x < 0 && (selfPreAabb.xMax > otherPreAabb.xMax))
                         {
+                        console.log('collision XXXX  1111')
                             this.node.x += Math.floor(Math.abs(otherAabb.xMax - selfAabb.xMin) + 1);
                             this.collisionX = -1;
                         }
                     else if (this.speed.x > 0 && (selfPreAabb.xMin < otherPreAabb.xMin))
                         {
+                        console.log('collision XXX  2222')
                             this.node.x -= Math.floor(Math.abs(otherAabb.xMin - selfAabb.xMax) + 1);
                             this.collisionX = 1;
                         } 
                     else if (this.speed.x == 0 && (selfPreAabb.xMax == otherPreAabb.xMin))
                         {
+                        console.log('collision XXX  333')
                             this.fallDown = true;
                         }
 
@@ -532,21 +547,57 @@ cc.Class({
             selfPreAabb.y = selfAabb.y;
             otherPreAabb.y = otherAabb.y;
 
-            if (cc.Intersection.rectRect(selfPreAabb, otherPreAabb))
+            //if (cc.Intersection.rectRect(selfPreAabb, otherPreAabb))
+            if (cc.Intersection.rectPolygon(selfPreAabb, otherPreAabb))
                 {
-                    if (this.speed.y < 0 && (selfPreAabb.yMax > otherPreAabb.yMax))
+                    // if (this.speed.y < 0 && (selfPreAabb.yMax > otherPreAabb.yMax))
+                    //     {
+                    //         //this.node.y = otherPreAabb.yMax - this.node.parent.y;
+                    //         this.node.y = otherPreAabb.yMax + this.node.getContentSize().width / 2
+                    //         this.jumping = false;//下落碰到地面或砖块木桩等
+                    //         this.collisionY = -1;
+                    //     }
+                    // else if (this.speed.y > 0 && (selfPreAabb.yMin < otherPreAabb.yMin))
+                    //     {
+                    //         //cc.audioEngine.play(this.hit_block_Audio, false, Global.volume);
+                    //         this.node.y = otherPreAabb.yMin - selfPreAabb.height - this.node.parent.y;
+                    //         this.collisionY = 1;
+                    //     }
+
+                        if (this.speed.y >= 0 && (selfPreAabb.yMax > otherPreAabb.yMax)) //向上脚碰到了
                         {
-                            //this.node.y = otherPreAabb.yMax - this.node.parent.y;
-                            this.node.y = otherPreAabb.yMax + this.node.getContentSize().width / 2
-                            this.jumping = false;//下落碰到地面或砖块木桩等
-                            this.collisionY = -1;
-                        }
-                    else if (this.speed.y > 0 && (selfPreAabb.yMin < otherPreAabb.yMin))
-                        {
-                            //cc.audioEngine.play(this.hit_block_Audio, false, Global.volume);
-                            this.node.y = otherPreAabb.yMin - selfPreAabb.height - this.node.parent.y;
+                            console.log('collision YYY  1111')
+                            this.node.y = otherPreAabb.yMax + this.node.getContentSize().height / 2
                             this.collisionY = 1;
                         }
+                        else if (this.speed.y >= 0 && (selfPreAabb.yMax <= otherPreAabb.yMax)) //向上头碰到了
+                        {
+                            console.log('collision YYY 22222222')
+                            this.node.y = otherPreAabb.yMin - this.node.getContentSize().height / 2
+                            this.collisionY = -1;
+                        }
+                        else if (this.speed.y <= 0 && (selfPreAabb.yMax >= otherPreAabb.yMax))
+                        {
+                            console.log('collision YYY 333333333')
+
+                            console.log('this.node.y ===' + this.node.y)
+                            console.log('otherPreAabb.yMax ===' + otherPreAabb.yMax)
+                            console.log('otherPreAabb.yMin ===' + otherPreAabb.yMin)
+                            console.log('this.node.getContentSize().height / 2 ===' + this.node.getContentSize().height / 2)
+
+
+                            this.node.y = otherPreAabb.yMax + this.node.getContentSize().height / 2
+                            this.jumping = false;//下落碰到地面或砖块木桩等
+                            this.collisionY = -1;
+                        } 
+                        else if (this.speed.y <= 0 && (selfPreAabb.yMax <= otherPreAabb.yMax))
+                        {
+                            console.log('collision YYY 444')
+                            this.node.y = otherPreAabb.yMin - this.node.getContentSize().height / 2
+                            this.collisionY = -1;
+                        }
+
+                    
 
                     this.speed.y = 0;
                     other.touchingY = true;
