@@ -5,6 +5,7 @@ window.Global = {
     enemyIsAlive:true,
     playIsAlive:true,
     volume:0,
+    tildSize:64,
 
     CollisideTag: cc.Enum({
         FLOOR: 1,

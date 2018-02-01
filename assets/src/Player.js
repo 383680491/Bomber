@@ -251,9 +251,11 @@ cc.Class({
             if (this.touchingNumber == 0)
                 {
                     if (this.buttonIsPressed) // 左右按键
-                        this.player_walk();// 有按键时，快要落地之前为walk状态
-                    else
-                        this.player_idle();// 没有按键时，快要落地之前为idle状态
+                    {
+                        //this.player_walk();// 有按键时，快要落地之前为walk状态
+                    }else{
+                        //this.player_idle();// 没有按键时，快要落地之前为idle状态
+                    }
                 }
         console.log('other.tag = ' + other.tag)
             switch (other.tag)
@@ -619,7 +621,6 @@ cc.Class({
             if (this.touchingNumber === 0 || this.fallDown || this.touchingNumber === -1)
                 {
                     this.speed.y += this.gravity * dt;
-                    console.log("fuck it")
                     if (Math.abs(this.speed.y) > this.maxSpeed.y)
                         {
                             this.speed.y = this.speed.y > 0 ? this.maxSpeed.y : -this.maxSpeed.y;

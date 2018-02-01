@@ -43,12 +43,13 @@
     <property name="speedX" value="3"/>
    </properties>
   </object>
-  <object id="6" name="monster" type="UD" x="832" y="1792">
+  <object id="6" name="mstReptMove" type="reptMove" x="274" y="1792">
    <properties>
-    <property name="destinationX" value="13"/>
-    <property name="destinationY" value="25"/>
-    <property name="speedX" value="0"/>
-    <property name="speedY" value="2"/>
+    <property name="horiLeftDest" type="int" value="2"/>
+    <property name="horiRightDest" type="int" value="2"/>
+    <property name="speedX" type="int" value="200"/>
+    <property name="speedY" type="int" value="0"/>
+    <property name="vertDest" type="int" value="2"/>
    </properties>
   </object>
   <object id="7" name="monster" type="LR" x="1280" y="1728">
