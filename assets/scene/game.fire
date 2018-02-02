@@ -405,7 +405,7 @@
     "node": {
       "__id__": 8
     },
-    "_enabled": false
+    "_enabled": true
   },
   {
     "__type__": "cc.Node",
@@ -466,7 +466,7 @@
     "node": {
       "__id__": 10
     },
-    "_enabled": true
+    "_enabled": false
   },
   {
     "__type__": "cc.TiledMap",

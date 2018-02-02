@@ -65,6 +65,11 @@ cc.Class({
             {
                 var collisionNode = platGroups[i].sgNode;
                 //console.log(platGroups[i].getObjectName())
+                if (platGroups[i].getObjectName() == '3')
+                {
+                    console.log('collisionNode.x =====' + collisionNode.x)
+                    console.log('collisionNode.y =====' + collisionNode.y)
+                }
 
                 var node = cc.instantiate(this.ColliderPreName);
                 node.active = true

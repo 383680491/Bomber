@@ -5,19 +5,19 @@
  </tileset>
  <layer name="floor" width="36" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2UCQqAMAwE413P/z/XFQwepFZBaMUdGGwDhqU1ihBCCCGE/It8tYAlrKCLmKeFnfFknmOeVGCeazRPDwc4wsnYK5nYM1nDRuLO5hfR80zl/0Y2rLvR7/xO3b3QQ+tLr/08+tbneQ7tfe+F6k+z+PrMZb48TuAQAAA=
+   H4sIAAAAAAAACu2TWQqAMAxEU9e63v+4jmDAJbUVhArOg4c2aJiPjgghhBBCyL8oNktYwRr6jHk62BtP5jnm+QrMc4/mGeAIJzgbZ8WJ3ckGtnLtpjO+zdlfQlKx7q7e85S5f2GHztdd+z6G3s99jp1D/8XmT7OE9iwVnv1o4BAAAA==
   </data>
  </layer>
- <objectgroup name="platform" visible="0">
+ <objectgroup name="platform">
   <object id="10" name="1" x="0" y="1792" width="1218" height="124"/>
   <object id="13" name="2" x="1216" y="1724" width="1090" height="196"/>
-  <object id="14" name="3" x="1532" y="1530" width="388" height="68"/>
+  <object id="14" name="3" x="1537.5" y="1408" width="382.5" height="63"/>
   <object id="15" name="4" x="764" y="1406" width="584" height="64"/>
   <object id="16" name="5" x="0" y="1024" width="382" height="185"/>
   <object id="17" name="6" x="-3.0303" y="1209.09" width="133.333" height="196.97"/>
   <object id="18" name="6" x="-3" y="1410" width="643" height="65"/>
  </objectgroup>
- <objectgroup name="objects">
+ <objectgroup name="objects" visible="0">
   <object id="1" name="heroPos" x="64" y="1664"/>
   <object id="2" name="gadget" x="2176" y="1664">
    <properties>

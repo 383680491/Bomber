@@ -502,43 +502,30 @@ cc.Class({
             // 碰撞系统会计算出碰撞组件在世界坐标系下的相关的值，并放到 world 这个属性里面
             var otherAabb = other.world.aabb;
             // 上一次计算的碰撞组件的 aabb 碰撞框
-            var otherPreAabb = other.world.preAabb.clone();
-
-
-
+            var otherPreAabb = other.world.preAabb.clone();  //上一帧的碰撞盒子 这个碰撞盒子的左边相对于世界坐标的位置，即左下角的相对位置
+                                                    //是指你的节点posX的坐标是1000 如果你的父亲节点的坐标是-900，那碰撞盒子的posX坐标是100
             var selfAabb = self.world.aabb;
             var selfPreAabb = self.world.preAabb.clone();
-
-
             
             selfPreAabb.x = selfAabb.x;
             otherPreAabb.x = otherAabb.x;
 
-            JSON.stringify(otherAabb)
-            JSON.stringify(selfPreAabb)
-
-        console.log('collision   this.speed.x====' + this.speed.x)
-        console.log('collision   this.speed.y====' + this.speed.y)
+            //console.log('JSON.stringify(otherAabb)====' + JSON.stringify(otherAabb))
+            //console.log('collision   this.speed.x====' + this.speed.x)
+            //console.log('collision   this.speed.y====' + this.speed.y)
 
             if (cc.Intersection.rectRect(selfPreAabb, otherPreAabb))
                 {
-                    if (this.speed.x < 0 && (selfPreAabb.xMax > otherPreAabb.xMax))
-                        {
-                        console.log('collision XXXX  1111')
-                            this.node.x += Math.floor(Math.abs(otherAabb.xMax - selfAabb.xMin) + 1);
-                            this.collisionX = -1;
-                        }
-                    else if (this.speed.x > 0 && (selfPreAabb.xMin < otherPreAabb.xMin))
-                        {
-                        console.log('collision XXX  2222')
-                            this.node.x -= Math.floor(Math.abs(otherAabb.xMin - selfAabb.xMax) + 1);
-                            this.collisionX = 1;
-                        } 
-                    else if (this.speed.x == 0 && (selfPreAabb.xMax == otherPreAabb.xMin))
-                        {
-                        console.log('collision XXX  333')
-                            this.fallDown = true;
-                        }
+                    if (this.speed.x < 0 && (selfPreAabb.xMax > otherPreAabb.xMax)) {
+                        this.node.x += Math.floor(Math.abs(otherAabb.xMax - selfAabb.xMin));
+                        this.collisionX = -1;
+                    }
+                    else if (this.speed.x > 0 && (selfPreAabb.xMin < otherPreAabb.xMin)) {
+                        this.node.x -= Math.floor(Math.abs(otherAabb.xMin - selfAabb.xMax));
+                        this.collisionX = 1;
+                    } else if (this.speed.x == 0 && (selfPreAabb.xMax == otherPreAabb.xMin)) {
+                        this.fallDown = true;
+                    }
 
                     this.speed.x = 0;
                     other.touchingX = true;
@@ -547,8 +534,8 @@ cc.Class({
             selfPreAabb.y = selfAabb.y;
             otherPreAabb.y = otherAabb.y;
 
-            //if (cc.Intersection.rectRect(selfPreAabb, otherPreAabb))
-            if (cc.Intersection.rectPolygon(selfPreAabb, otherPreAabb))
+            if (cc.Intersection.rectRect(selfPreAabb, otherPreAabb))
+            //if (cc.Intersection.rectPolygon(selfPreAabb, otherPreAabb))
                 {
                     // if (this.speed.y < 0 && (selfPreAabb.yMax > otherPreAabb.yMax))
                     //     {
@@ -570,23 +557,15 @@ cc.Class({
                             this.node.y = otherPreAabb.yMax + this.node.getContentSize().height / 2
                             this.collisionY = 1;
                         }
-                        else if (this.speed.y >= 0 && (selfPreAabb.yMax <= otherPreAabb.yMax)) //向上头碰到了
+                        else if (this.speed.y >= 0 && (selfPreAabb.yMin <= otherPreAabb.yMin)) //向上头碰到了
                         {
                             console.log('collision YYY 22222222')
-                            this.node.y = otherPreAabb.yMin - this.node.getContentSize().height / 2
+                            this.node.y = otherPreAabb.yMin - selfPreAabb.height / 2 - this.node.parent.y
                             this.collisionY = -1;
                         }
                         else if (this.speed.y <= 0 && (selfPreAabb.yMax >= otherPreAabb.yMax))
                         {
-                            console.log('collision YYY 333333333')
-
-                            console.log('this.node.y ===' + this.node.y)
-                            console.log('otherPreAabb.yMax ===' + otherPreAabb.yMax)
-                            console.log('otherPreAabb.yMin ===' + otherPreAabb.yMin)
-                            console.log('this.node.getContentSize().height / 2 ===' + this.node.getContentSize().height / 2)
-
-
-                            this.node.y = otherPreAabb.yMax + this.node.getContentSize().height / 2
+                            this.node.y = otherPreAabb.yMax + selfPreAabb.height / 2 - this.node.parent.y;
                             this.jumping = false;//下落碰到地面或砖块木桩等
                             this.collisionY = -1;
                         } 
@@ -603,6 +582,7 @@ cc.Class({
                     other.touchingY = true;
                 }
             this.isWallCollisionCount++;
+        
 
         },
 
