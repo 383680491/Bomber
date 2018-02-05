@@ -36,6 +36,7 @@ cc.Class({
 
         ColliderPreName: cc.Prefab,
         MonsterReptMovePre: cc.Prefab,
+        Gadget: cc.Prefab,
         ScreenFollowPoint:cc.v2(0, 0),
         curMap: cc.TiledMap,
         player: cc.Node,
@@ -52,13 +53,13 @@ cc.Class({
             if (error)
                 return;
             //this._MapTileSize = this._TiledMap.getTileSize();
+            this.gadgetList = [];
             this.mapTildSize = this._TiledMap.getMapSize()
             this.mapSize = cc.size(this.mapTildSize.width * Global.tildSize, this.mapTildSize.height * Global.tildSize)
             this._layerFloor = this._TiledMap.getLayer(this.floorLayerName);
             if (!this._layerFloor) return;
 
             var platformGroup = this._TiledMap.getObjectGroup(this.platformGroupName)
-            var ObjectGroup = this._TiledMap.getObjectGroup("objects")
             var platGroups = platformGroup.getObjects()
 
             for (var i = 0; i < platGroups.length; i++) 
@@ -83,12 +84,11 @@ cc.Class({
                 this.gameLayer.addChild(node);
             }
             
+            var ObjectGroup = this._TiledMap.getObjectGroup("objects")
             var group = ObjectGroup.getObjects()
             for (var i = 0; i < group.length; i++)
             {
                 var obj = group[i];
-                //console.log(obj.getObjectName())
-
                 if ("mstReptMove" === obj.getObjectName())
                 {
                     var node = cc.instantiate(this.MonsterReptMovePre);
@@ -98,6 +98,19 @@ cc.Class({
                     var collisionNode = obj.sgNode
                     node.position = cc.p(collisionNode.x, collisionNode.y + node.getContentSize().height / 2)
                     node.getComponent(cc.BoxCollider).enabled = true;
+                }
+                else if ("gadget" === obj.getObjectName())     //升降梯
+                {
+                    var node = cc.instantiate(this.Gadget);
+                    node.active = true
+                    this.gameLayer.addChild(node);
+                    node.emit('init', { 'obj': obj })
+                    var collisionNode = obj.sgNode
+                    node.position = cc.p(collisionNode.x, collisionNode.y + node.getContentSize().height / 2)
+                    node.getComponent(cc.BoxCollider).enabled = true;
+                    node.group = 'floor'
+                    node.getComponent(cc.BoxCollider).tag = Global.CollisideTag.FLOOR;
+                    this.gadgetList.push(node)
                 }
             }
         },

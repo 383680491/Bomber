@@ -515,7 +515,7 @@
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 0.5
+      "y": 0
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -565,58 +565,6 @@
     "_atlas": null
   },
   {
-    "__type__": "cc.PolygonCollider",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 13
-    },
-    "_enabled": true,
-    "tag": 0,
-    "_offset": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "points": [
-      {
-        "__type__": "cc.Vec2",
-        "x": -55.5,
-        "y": -22
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -30.7,
-        "y": -56.6
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 21.6,
-        "y": -65.1
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 57.8,
-        "y": -30
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 59,
-        "y": -6.5
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": 39.8,
-        "y": 53
-      },
-      {
-        "__type__": "cc.Vec2",
-        "x": -21.7,
-        "y": 64
-      }
-    ]
-  },
-  {
     "__type__": "ece53FIVlxEY4IUBXobPTrb",
     "_name": "",
     "_objFlags": 0,
@@ -632,18 +580,32 @@
     "maxSpeed": {
       "__type__": "cc.Vec2",
       "x": 500,
-      "y": 1000
+      "y": 2000
     },
     "gravity": -2000,
-    "drag": 1500,
+    "drag": 3000,
     "direction": 0,
-    "jumpSpeed": 800,
-    "jumpCount": 0,
-    "hunker": false,
-    "isWallCollisionCount": 0,
-    "isDied": false,
-    "fallDown": false,
-    "life": 1
+    "jumpSpeed": 1000
+  },
+  {
+    "__type__": "cc.BoxCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 13
+    },
+    "_enabled": true,
+    "tag": 0,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 63
+    },
+    "_size": {
+      "__type__": "cc.Size",
+      "width": 119,
+      "height": 126
+    }
   },
   {
     "__type__": "cc.Node",
@@ -874,6 +836,9 @@
     },
     "MonsterReptMovePre": {
       "__uuid__": "a6ea0633-f12b-45cf-82fc-308e63fe82cc"
+    },
+    "Gadget": {
+      "__uuid__": "d173d0c4-3aff-48d6-9c7b-25a1cf76603e"
     },
     "ScreenFollowPoint": {
       "__type__": "cc.Vec2",

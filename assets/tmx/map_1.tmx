@@ -3,36 +3,28 @@
  <tileset firstgid="1" name="tile" tilewidth="64" tileheight="64" tilecount="16" columns="8">
   <image source="tile.png" width="512" height="128"/>
  </tileset>
- <layer name="floor" width="36" height="30">
+ <layer name="floor" width="36" height="30" locked="1">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2TWQqAMAxEU9e63v+4jmDAJbUVhArOg4c2aJiPjgghhBBCyL8oNktYwRr6jHk62BtP5jnm+QrMc4/mGeAIJzgbZ8WJ3ckGtnLtpjO+zdlfQlKx7q7e85S5f2GHztdd+z6G3s99jp1D/8XmT7OE9iwVnv1o4BAAAA==
+   H4sIAAAAAAAACu2U2wqAIBBEt7td//9znaCFijUNAoXmwEFdcJkHVxFCCCGEkH9RHzawhR10GfOMcDJW5rnmKQXmeUbzzHCBK9yMs1KJPZM9HCTvbKag+Uv5T0i5WG9F33lK3X3QQ+t7r/M8hvb3eY6dQ/di9bdZQn08YDapSuAQAAA=
   </data>
  </layer>
- <objectgroup name="platform">
+ <objectgroup name="platform" visible="0">
   <object id="10" name="1" x="0" y="1792" width="1218" height="124"/>
   <object id="13" name="2" x="1216" y="1724" width="1090" height="196"/>
-  <object id="14" name="3" x="1537.5" y="1408" width="382.5" height="63"/>
+  <object id="14" name="3" x="1536.5" y="1472" width="382.5" height="63"/>
   <object id="15" name="4" x="764" y="1406" width="584" height="64"/>
   <object id="16" name="5" x="0" y="1024" width="382" height="185"/>
   <object id="17" name="6" x="-3.0303" y="1209.09" width="133.333" height="196.97"/>
   <object id="18" name="6" x="-3" y="1410" width="643" height="65"/>
  </objectgroup>
- <objectgroup name="objects" visible="0">
+ <objectgroup name="objects">
   <object id="1" name="heroPos" x="64" y="1664"/>
-  <object id="2" name="gadget" x="2176" y="1664">
+  <object id="2" name="gadget" x="1920" y="1280">
    <properties>
-    <property name="destinationX" value="34"/>
-    <property name="destinationY" value="24"/>
-    <property name="speedX" value="0"/>
-    <property name="speedY" value="2"/>
-   </properties>
-  </object>
-  <object id="3" name="gadget" x="1600" y="1440">
-   <properties>
-    <property name="destinationX" value="23.5"/>
-    <property name="destinationY" value="22.5"/>
-    <property name="speedX" value="1"/>
-    <property name="speedY" value="0"/>
+    <property name="destinationX" value="3"/>
+    <property name="destinationY" value="3"/>
+    <property name="speedX" value="100"/>
+    <property name="speedY" value="100"/>
    </properties>
   </object>
   <object id="4" name="monster" type="stand" x="448" y="1792"/>
