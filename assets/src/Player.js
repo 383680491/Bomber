@@ -280,7 +280,6 @@ cc.Class({
         for (var i = 0; i < scripeObj.gadgetList.length; i++)
         {
             var sObj = scripeObj.gadgetList[i].getComponent("Gadget")
-            console.log('fuck you  hahahah')
             sObj.isFollow = false;
         }
     },

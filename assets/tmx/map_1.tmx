@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="36" height="30" tilewidth="64" tileheight="64" infinite="0" nextobjectid="22">
- <tileset firstgid="1" name="tile" tilewidth="64" tileheight="64" tilecount="16" columns="8">
-  <image source="tile.png" width="512" height="128"/>
+ <tileset firstgid="1" name="tile" tilewidth="64" tileheight="64" tilecount="64" columns="8">
+  <image source="tile.png" width="512" height="512"/>
  </tileset>
- <layer name="floor" width="36" height="30" locked="1">
+ <tileset firstgid="65" source="fog.tsx"/>
+ <layer name="floor" width="36" height="30">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACu2U2wqAIBBEt7td//9znaCFijUNAoXmwEFdcJkHVxFCCCGEkH9RHzawhR10GfOMcDJW5rnmKQXmeUbzzHCBK9yMs1KJPZM9HCTvbKag+Uv5T0i5WG9F33lK3X3QQ+t7r/M8hvb3eY6dQ/di9bdZQn08YDapSuAQAAA=
+   H4sIAAAAAAAACu2U2wqAIBBEt7tdH/r/j20CFyrWLAgUmgMHdcFlHlxFCCGEEEL+RemtYA0b6BLm6eFgrMxzzpMLzHOP5hnhBGe4GGelEHsmW9hJ2tl8gubP5T8h+bH61Xor+s6f1N0HPbS+9zrOY2h/nefYOXQvVn+bJdRnA110OcHgEAAA
   </data>
  </layer>
  <objectgroup name="platform" visible="0">
@@ -17,7 +18,7 @@
   <object id="17" name="6" x="-3.0303" y="1209.09" width="133.333" height="196.97"/>
   <object id="18" name="6" x="-3" y="1410" width="643" height="65"/>
  </objectgroup>
- <objectgroup name="objects">
+ <objectgroup name="objects" visible="0">
   <object id="1" name="heroPos" x="64" y="1664"/>
   <object id="2" name="gadget" x="1920" y="1280">
    <properties>
@@ -62,4 +63,9 @@
   </object>
   <object id="9" name="spring" x="512" y="1408"/>
  </objectgroup>
+ <layer name="fog" width="36" height="30">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACu3DAQkAAAwEoav2/Ustx0DBVVNVVVV9/ABXMzzq4BAAAA==
+  </data>
+ </layer>
 </map>

@@ -53,10 +53,14 @@ cc.Class({
             if (error)
                 return;
             //this._MapTileSize = this._TiledMap.getTileSize();
+            this.playLastPos = this.player.position
             this.gadgetList = [];
             this.mapTildSize = this._TiledMap.getMapSize()
             this.mapSize = cc.size(this.mapTildSize.width * Global.tildSize, this.mapTildSize.height * Global.tildSize)
             this._layerFloor = this._TiledMap.getLayer(this.floorLayerName);
+            this.fogLayer = this._TiledMap.getLayer("fog");
+            //fogLayer.node.active = false
+
             if (!this._layerFloor) return;
 
             var platformGroup = this._TiledMap.getObjectGroup(this.platformGroupName)
@@ -66,12 +70,6 @@ cc.Class({
             {
                 var collisionNode = platGroups[i].sgNode;
                 //console.log(platGroups[i].getObjectName())
-                if (platGroups[i].getObjectName() == '3')
-                {
-                    console.log('collisionNode.x =====' + collisionNode.x)
-                    console.log('collisionNode.y =====' + collisionNode.y)
-                }
-
                 var node = cc.instantiate(this.ColliderPreName);
                 node.active = true
                 node.position = cc.p(collisionNode.x + collisionNode.width / 2, collisionNode.y - collisionNode.height + collisionNode.height / 2)
@@ -117,6 +115,7 @@ cc.Class({
 
     update:function(dt) {
         this.mapScrollPosition(dt)
+        this.updateBattleFog()
     },
 
     mapScrollPosition:function(dt){
@@ -129,5 +128,128 @@ cc.Class({
         var viewPointX = this.ScreenFollowPoint.x - x;
         var viewPointY = this.ScreenFollowPoint.y - y;
         this.gameLayer.setPosition(viewPointX, viewPointY);
-    }
+    },
+
+    updateBattleFog:function()
+    {
+        var pos = this.positionToTileCoord(this.player.position)
+        if (this.playLastPos.x != this.player.x || this.playLastPos.y != this.player.y)
+        {
+            this.updateWarFog(pos)
+            this.playLastPos = pos;
+        }
+    },
+
+    //瓦片地图从0,0开始  由上而下 由左到右
+    positionToTileCoord: function(pos)
+    {
+        var x = Math.floor(pos.x / Global.tildSize);
+        var y = Math.floor((this.mapTildSize.height) - pos.y / Global.tildSize);
+        return cc.v2(x, y)
+    },
+
+
+    updateWarFog: function(heroTileCoord)
+    {
+        this.updateLogicTileInfo(heroTileCoord);
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x, heroTileCoord.y - 1));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x, heroTileCoord.y - 2));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x, heroTileCoord.y - 3));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x, heroTileCoord.y + 1));
+    
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x + 1, heroTileCoord.y));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x + 1, heroTileCoord.y + 1));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x + 1, heroTileCoord.y - 1));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x + 1, heroTileCoord.y - 2));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x + 1, heroTileCoord.y - 3));
+    
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x - 1, heroTileCoord.y));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x - 1, heroTileCoord.y + 1));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x - 1, heroTileCoord.y - 1));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x - 1, heroTileCoord.y - 2));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x - 1, heroTileCoord.y - 3));
+    
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x - 2, heroTileCoord.y));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x - 2, heroTileCoord.y + 1));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x - 2, heroTileCoord.y - 1));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x - 2, heroTileCoord.y - 2));
+        this.updateLogicTileInfo(cc.v2(heroTileCoord.x - 2, heroTileCoord.y - 3));
+    },
+
+
+    sureTileCroodValid: function(crood)
+    {
+        crood.x = crood.x < 0 ? 0 : crood.x;
+        crood.x = crood.x >= this.mapTildSize.width ? this.mapTildSize.width - 1 : crood.x;
+        crood.y = crood.y < 0 ? 0 : crood.y;
+        crood.y = crood.y >= this.mapTildSize.height ? this.mapTildSize.height - 1 : crood.y;
+    
+        return crood;
+    },
+
+    //http://www.benmutou.com/archives/455
+
+    updateLogicTileInfo: function(tileCrood) 
+    {
+        if (this.setTileInfo(this.sureTileCroodValid(tileCrood), 4))
+        {
+            this.setTileInfo(this.sureTileCroodValid(cc.v2(tileCrood.x + 1, tileCrood.y)), 8);
+            this.setTileInfo(this.sureTileCroodValid(cc.v2(tileCrood.x, tileCrood.y + 1)), 1);
+            this.setTileInfo(this.sureTileCroodValid(cc.v2(tileCrood.x + 1, tileCrood.y + 1)), 2);
+        }
+    },
+
+    setTileInfo: function (crood, textureIndex)
+    {
+        var tileSprite = this.fogLayer.getTileAt(crood);
+        if (tileSprite.userdata == null)
+        {   
+            tileSprite.userdata = [textureIndex]
+        }
+        else
+        {
+            if (this.IsValidFun(tileSprite.userdata, textureIndex) === false)
+                return
+                    
+            var total = this.TotalNumFun(tileSprite.userdata)
+            if (total == 15)
+                return
+            
+            tileSprite.userdata.push(textureIndex)
+        }
+    
+        var total = this.TotalNumFun(tileSprite.userdata);
+        this.fogLayer.setTileGID(64 + Global.mapFogTextureIndex[total], crood);
+    
+        return true
+    },
+
+
+    TotalNumFun: function(list)
+    {
+        var argv = 0;
+        for (i = 0; i < list.length; i++)
+        {
+            argv = argv + list[i];
+        }
+
+        return argv;
+    },
+
+    IsValidFun: function(list, varg)
+    {
+        var flag = true; //每一个列表里面 有且只能有 单独一个  1、2、4、8
+        for (i = 0; i < list.length; i++)
+        {
+            if(list[i] === varg)
+            {
+                flag = false;
+                break;
+            }
+        }
+    
+        return flag;
+    },
+
+
 });
